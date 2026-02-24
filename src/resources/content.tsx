@@ -13,7 +13,7 @@ const person: Person = {
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -35,18 +35,6 @@ const social: Social = [
     essential: true,
   },
   {
-    name: "Instagram",
-    icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
-    essential: false,
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
-    essential: false,
-  },
-  {
     name: "Email",
     icon: "email",
     link: `mailto:${person.email}`,
@@ -58,11 +46,11 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  title: `${person.name}'s Website`,
+  description: `${person.name}'s Website`,
+  headline: <>Welcome!</>,
   featured: {
-    display: true,
+    display: false,
     title: (
       <Row gap="12" vertical="center">
         <strong className="ml-4">Once UI</strong>{" "}
@@ -76,7 +64,7 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Henry, a software engineer at <Text as="span" size="xl" weight="strong">Optum</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
+    I'm Henry, a software engineer at <Text as="span" size="xl" weight="strong">Optum</Text>.
 </>
   ),
 };
@@ -102,9 +90,7 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        Henry is a software engineer at Optum. During his free time, he is playing video games, traveling, and repairing electronics.
       </>
     ),
   },
@@ -118,12 +104,22 @@ const about: About = {
         role: "Software Engineer",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Monitor poor system performance, investigate and address root cause with minimal member impact.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Implemented JWT tokenization in myUHC app for background data syncing to improve NPS score.
+          </>,
+          <>
+            Configured Dependabot, Policy Bot, and Bulldozer to proactively manage dependencies, and enforce security protocols, enhancing application security and development efficiency. 
+          </>,
+          <>
+            Designed and implemented proof of concepts (POCs) for automating certificates and secrets in backend systems, reducing manual toil for developers and enhancing security compliance.
+          </>,
+          <>
+            Engaged with external teams to assess system capabilities, foster collaboration, and proactively address identified system issues, ensuring seamless integration and operational efficiency.
+          </>,
+          <>
+            Plan and host events for early-career developers in the Boston office, fostering engagement with colleagues, facilitating peer learning and strengthening professional development. 
           </>,
         ],
         images: [
@@ -137,17 +133,49 @@ const about: About = {
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Braintree Public Schools",
+        timeframe: "2016 - 2021",
+        role: "IT Technician",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Developed Arduino system to automatically enroll Chromebooks into Google G-Suite with minimal staff intervention. Tested in 2019 on ~100 Chromebook enrollments.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Managed Windows PC, Google products, Apple electronics, and Epson projectors using SCCM, AD, Lightspeed Systems, or HelpDesk to support technologies that faculties use district wide.
+          </>,
+          <>
+            Assisted in implementing Bring-Your-Own-Device (BYOD) plans at Braintree High School to increase access to technology using Cloudpath and support 1300+ connected student devices.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "University of Massachusetts Amherst",
+        timeframe: "2019 - 2021",
+        role: "Undergraduate Course Assistant",
+        achievements: [
+          <>
+            Graded students' homework and exams on a weekly basis in a ~250 student core CS course.
+          </>,
+          <>
+            Held office hours weekly to answer students' questions and concerns about CS concepts and projects.
+          </>,
+          <>
+            Assisted in running a lab section weekly that consists of around 40 students.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "iD Tech Camps",
+        timeframe: "2019",
+        role: "Lead Instructor",
+        achievements: [
+          <>
+            Taught Java fundamentals through Minecraft mods and data structures and algorithms via mini projects to an average of 5 campers ages 10-17 weekly.
+          </>,
+          <>
+            Assisted Camp Director in camp administrative duties, such as camp check-in/checkout, health and safety oversight, supporting 3 - 4 instructors, and supervising 20 - 30 students daily. 
           </>,
         ],
         images: [],
@@ -159,17 +187,17 @@ const about: About = {
     title: "Education",
     institutions: [
       {
-        name: "University of Massachusetts - Amherst",
-        description: <>BS in Computer Science with great honors distinction.</>,
+        name: "University of Massachusetts Amherst, Commonwealth Honors College",
+        description: <>BS in Computer Science with great distinction</>,
       },
       {
-        name: "University of Massachusetts - Amherst",
-        description: <>BS in Mathematics with great honors distinction.</>,
+        name: "University of Massachusetts Amherst, Commonwealth Honors College",
+        description: <>BS in Mathematics with great distinction</>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
+    display: false, // set to false to hide this section
     title: "Technical skills",
     skills: [
       {

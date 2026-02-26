@@ -69,8 +69,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
             {about.tableOfContent.subItems && (
               <>
                 {section.items.map((item, itemIndex) => {
-                  const displayName = typeof item === "string" ? item : item.displayName;
-                  const targetName = typeof item === "string" ? item : item.targetName;
+                  const displayName = typeof item === "string" ? item : (item.displayName ?? item.targetName);
+                  if (!displayName) return null;
                   return (
                     <Flex
                       l={{ hide: true }}

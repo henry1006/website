@@ -42,7 +42,7 @@ export default function About() {
       title: about.work.title,
       display: about.work.display,
       items: about.work.experiences.map((experience) => ({
-        displayName: experience.shortname || experience.company,
+        displayName: experience.shortname ?? experience.company,
         targetName: experience.company,
       })),
     },
@@ -50,7 +50,7 @@ export default function About() {
       title: about.studies.title,
       display: about.studies.display,
       items: about.studies.institutions.map((institution) => ({
-        displayName: institution.shortname || institution.name,
+        displayName: institution.shortname ?? institution.name,
         targetName: institution.name,
       })),
     },
@@ -58,7 +58,7 @@ export default function About() {
       title: about.technical.title,
       display: about.technical.display,
       items: about.technical.skills.map((skill) => ({
-        displayName: skill.shortname || skill.title,
+        displayName: skill.shortname ?? skill.title,
         targetName: skill.title,
       })),
     },

@@ -70,6 +70,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
               <>
                 {section.items.map((item, itemIndex) => {
                   const displayName = typeof item === "string" ? item : (item.displayName ?? item.targetName);
+                  const targetName = typeof item === "string" ? item : item.targetName;
                   if (!displayName) return null;
                   return (
                     <Flex

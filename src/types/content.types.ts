@@ -146,6 +146,8 @@ export interface About extends BasePageConfig {
     experiences: Array<{
       /** Company name */
       company: string;
+      /** Short name for display in table of contents */
+      shortname?: string;
       /** Timeframe of employment */
       timeframe: string;
       /** Role or job title */
@@ -175,6 +177,8 @@ export interface About extends BasePageConfig {
     institutions: Array<{
       /** Institution name */
       name: string;
+      /** Short name for display in table of contents */
+      shortname?: string;
       /** Description of studies */
       description: React.ReactNode;
     }>;
@@ -189,6 +193,8 @@ export interface About extends BasePageConfig {
     skills: Array<{
       /** Skill title */
       title: string;
+      /** Short name for display in table of contents */
+      shortname?: string;
       /** Skill description */
       description?: React.ReactNode;
       /** Skill tags */

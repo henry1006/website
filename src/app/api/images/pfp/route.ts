@@ -3,7 +3,7 @@ import { join } from "path";
 
 export async function GET() {
   try {
-    const filePath = join(process.cwd(), "src/file/images/pfp1.JPG");
+    const filePath = join(process.cwd(), "src/file/images/pfp1.jpg");
     const imageBuffer = await readFile(filePath);
 
     return new Response(imageBuffer, {

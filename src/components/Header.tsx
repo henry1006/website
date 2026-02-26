@@ -108,7 +108,7 @@ export const Header = () => {
               )}
               {routes["/work"] && (
                 <>
-                  <Row s={{ hide: true }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -116,7 +116,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/work")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -127,7 +127,7 @@ export const Header = () => {
               )}
               {routes["/blog"] && (
                 <>
-                  <Row s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -135,7 +135,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/blog")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -144,9 +144,28 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              <>
+                <Row s={{ hide: true }}>
+                  <ToggleButton
+                  prefixIcon="document"
+                  label="Resume"
+                  onClick={() =>
+                    window.open("/api/resume", "_blank")
+                  }
+                  />
+                </Row>
+                <Row hide s={{ hide: false }}>
+                  <ToggleButton
+                  prefixIcon="document"
+                  onClick={() =>
+                    window.open("/api/resume", "_blank")
+                  }
+                  />
+                </Row>
+              </>
               {routes["/gallery"] && (
                 <>
-                  <Row s={{ hide: true }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"
@@ -154,7 +173,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/gallery")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"

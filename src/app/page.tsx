@@ -9,8 +9,9 @@ import {
   Row,
   Schema,
   Meta,
-  Line,
+  Media,
 } from "@once-ui-system/core";
+import Image from "next/image";
 import { home, about, person, baseURL } from "@/resources";
 import { Mailchimp } from "@/components";
 
@@ -72,6 +73,31 @@ export default function Home() {
             <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
               {home.subline}
             </Text>
+          </RevealFx>
+          <RevealFx paddingTop="12" delay={0.3} horizontal="center" paddingBottom="12" paddingLeft="12">
+            <div style={{
+              width: '50vw',
+              maxWidth: '450px',
+              aspectRatio: '1',
+              overflow: 'hidden',
+              borderRadius: '50%',
+            }}>
+              <Image
+                src="/api/images/pfp"
+                alt="Profile Picture"
+                width={450}
+                height={450}
+                priority
+                unoptimized
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: '0% center',
+                  transform: 'scale(1.05)',
+                }}
+                />
+            </div>
           </RevealFx>
           <RevealFx paddingTop="12" delay={0.4} horizontal="center" paddingLeft="12">
             <Button

@@ -7,7 +7,7 @@ const person: Person = {
   name: `Henry Zhang`,
   role: "Software Engineer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
+  email: "cheunghenry70@hotmail.com",
   location: "America/New_York", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: [], // optional: Leave the array empty if you don't want to display languages
 };
@@ -76,7 +76,7 @@ const about: About = {
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
-    subItems: false,
+    subItems: true,
   },
   avatar: {
     display: false,
@@ -99,7 +99,7 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "Optum ",
+        company: "Optum",
         timeframe: "2020 - Present",
         role: "Software Engineer",
         achievements: [
@@ -124,12 +124,12 @@ const about: About = {
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
+          // {
+          //   src: "/images/projects/project-01/cover-01.jpg",
+          //   alt: "Once UI Project",
+          //   width: 16,
+          //   height: 9,
+          // },
         ],
       },
       {
@@ -151,6 +151,7 @@ const about: About = {
       },
       {
         company: "University of Massachusetts Amherst",
+        shortname: "UMass Amherst",
         timeframe: "2019 - 2021",
         role: "Undergraduate Course Assistant",
         achievements: [
@@ -168,6 +169,7 @@ const about: About = {
       },
       {
         company: "iD Tech Camps",
+        shortname: "iD Tech",
         timeframe: "2019",
         role: "Lead Instructor",
         achievements: [
@@ -188,10 +190,12 @@ const about: About = {
     institutions: [
       {
         name: "University of Massachusetts Amherst, Commonwealth Honors College",
+        shortname: "UMass Amherst",
         description: <>BS in Computer Science with great distinction</>,
       },
       {
         name: "University of Massachusetts Amherst, Commonwealth Honors College",
+        shortname: "UMass Amherst",
         description: <>BS in Mathematics with great distinction</>,
       },
     ],

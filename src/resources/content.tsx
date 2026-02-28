@@ -89,13 +89,11 @@ const about: About = {
     display: true,
     title: "Introduction",
     description: (
-      <>
-        Henry is a software engineer at Optum. During his free time, he is playing video games, traveling, and repairing electronics.
-      </>
+      <>Henry is a software engineer at Optum. During his free time, he is playing video games, traveling, and repairing electronics.</>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Work Experience",
     experiences: [
       {
@@ -103,24 +101,12 @@ const about: About = {
         timeframe: "2020 - Present",
         role: "Software Engineer",
         achievements: [
-          <>
-            Monitor poor system performance, investigate and address root cause with minimal member impact.
-          </>,
-          <>
-            Implemented JWT tokenization in myUHC app for background data syncing to improve NPS score.
-          </>,
-          <>
-            Configured Dependabot, Policy Bot, and Bulldozer to proactively manage dependencies, and enforce security protocols, enhancing application security and development efficiency. 
-          </>,
-          <>
-            Designed and implemented proof of concepts (POCs) for automating certificates and secrets in backend systems, reducing manual toil for developers and enhancing security compliance.
-          </>,
-          <>
-            Engaged with external teams to assess system capabilities, foster collaboration, and proactively address identified system issues, ensuring seamless integration and operational efficiency.
-          </>,
-          <>
-            Plan and host events for early-career developers in the Boston office, fostering engagement with colleagues, facilitating peer learning and strengthening professional development. 
-          </>,
+          <>Monitor poor system performance, investigate and address root cause with minimal member impact.</>,
+          <>Implemented JWT tokenization in myUHC app for background data syncing to improve NPS score.</>,
+          <>Configured Dependabot, Policy Bot, and Bulldozer to proactively manage dependencies, and enforce security protocols, enhancing application security and development efficiency.</>,
+          <>Designed and implemented proof of concepts (POCs) for automating certificates and secrets in backend systems, reducing manual toil for developers and enhancing security compliance.</>,
+          <>Engaged with external teams to assess system capabilities, foster collaboration, and proactively address identified system issues, ensuring seamless integration and operational efficiency.</>,
+          <>Plan and host events for early-career developers in the Boston office, fostering engagement with colleagues, facilitating peer learning and strengthening professional development.</>,
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
@@ -131,23 +117,19 @@ const about: About = {
           //   height: 9,
           // },
         ],
+        technicals: ["AWS", "Rust", "Java", "React JS", "Spring Boot", "Azure", "Launch Darkly", "DataDog"],
       },
       {
         company: "Braintree Public Schools",
         timeframe: "2016 - 2021",
         role: "IT Technician",
         achievements: [
-          <>
-            Developed Arduino system to automatically enroll Chromebooks into Google G-Suite with minimal staff intervention. Tested in 2019 on ~100 Chromebook enrollments.
-          </>,
-          <>
-            Managed Windows PC, Google products, Apple electronics, and Epson projectors using SCCM, AD, Lightspeed Systems, or HelpDesk to support technologies that faculties use district wide.
-          </>,
-          <>
-            Assisted in implementing Bring-Your-Own-Device (BYOD) plans at Braintree High School to increase access to technology using Cloudpath and support 1300+ connected student devices.
-          </>,
+          <>Developed Arduino system to automatically enroll Chromebooks into Google G-Suite with minimal staff intervention. Tested in 2019 on ~100 Chromebook enrollments.</>,
+          <>Managed Windows PC, Google products, Apple electronics, and Epson projectors using SCCM, AD, Lightspeed Systems, or HelpDesk to support technologies that faculties use district wide.</>,
+          <>Assisted in implementing Bring-Your-Own-Device (BYOD) plans at Braintree High School to increase access to technology using Cloudpath and support 1300+ connected student devices.</>,
         ],
         images: [],
+        technicals: ["Arduino", "Helpdesk", "Troubleshoot", "Networks"],
       },
       {
         company: "University of Massachusetts Amherst",
@@ -155,17 +137,12 @@ const about: About = {
         timeframe: "2019 - 2021",
         role: "Undergraduate Course Assistant",
         achievements: [
-          <>
-            Graded students' homework and exams on a weekly basis in a ~250 student core CS course.
-          </>,
-          <>
-            Held office hours weekly to answer students' questions and concerns about CS concepts and projects.
-          </>,
-          <>
-            Assisted in running a lab section weekly that consists of around 40 students.
-          </>,
+          <>Graded students' homework and exams on a weekly basis in a ~250 student core CS course.</>,
+          <>Held office hours weekly to answer students' questions and concerns about CS concepts and projects.</>,
+          <>Assisted in running a lab section weekly that consists of around 40 students.</>,
         ],
         images: [],
+        technicals: ["C/C++"],
       },
       {
         company: "iD Tech Camps",
@@ -173,14 +150,11 @@ const about: About = {
         timeframe: "2019",
         role: "Lead Instructor",
         achievements: [
-          <>
-            Taught Java fundamentals through Minecraft mods and data structures and algorithms via mini projects to an average of 5 campers ages 10-17 weekly.
-          </>,
-          <>
-            Assisted Camp Director in camp administrative duties, such as camp check-in/checkout, health and safety oversight, supporting 3 - 4 instructors, and supervising 20 - 30 students daily. 
-          </>,
+          <>Taught Java fundamentals through Minecraft mods and data structures and algorithms via mini projects to an average of 5 campers ages 10-17 weekly.</>,
+          <>Assisted Camp Director in camp administrative duties, such as camp check-in/checkout, health and safety oversight, supporting 3 - 4 instructors, and supervising 20 - 30 students daily.</>,
         ],
         images: [],
+        technicals: ["Java"],
       },
     ],
   },

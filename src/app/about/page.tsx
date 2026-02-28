@@ -11,6 +11,7 @@ import {
   Meta,
   Schema,
   Row,
+  Grid,
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
@@ -247,6 +248,19 @@ export default function About() {
                         ),
                       )}
                     </Column>
+                    
+                    {experience.technicals && experience.technicals.length > 0 && (
+                      <Column fillWidth paddingTop="m">
+                        <Grid fillWidth columns="3" s={{columns: 2}} gap="16">
+                          {experience.technicals.map((technical, index) => (
+                            <Column key={index} border="neutral-alpha-medium" padding="16" radius="m">
+                              <Text>{technical}</Text>
+                            </Column>
+                          ))}
+                        </Grid>
+                      </Column>
+                    )}
+
                     {experience.images && experience.images.length > 0 && (
                       <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
                         {experience.images.map((image, index) => (
@@ -257,13 +271,16 @@ export default function About() {
                             minWidth={image.width}
                             height={image.height}
                           >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
+                          <Grid
+                            fillWidth
+                            columns="3"
+                            s={{columns: 2}}
+                            gap="16"
+                          >
+                            <Column border="neutral-alpha-medium" padding="16" radius="m">
+                              <Text>{experience.technicals?.at(0)}</Text>
+                            </Column>
+                          </Grid>
                           </Row>
                         ))}
                       </Row>

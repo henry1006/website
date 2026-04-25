@@ -8,7 +8,7 @@ interface TableOfContentsProps {
   structure: {
     title: string;
     display: boolean;
-    items: string[];
+    items: (string | { displayName: string; targetName: string })[];
   }[];
   about: {
     tableOfContent: {
@@ -18,9 +18,14 @@ interface TableOfContentsProps {
   };
 }
 
+const sanitizeId = (str: string): string => {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+};
+
 const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) => {
   const scrollTo = (id: string, offset: number) => {
-    const element = document.getElementById(id);
+    const sanitizedId = sanitizeId(id);
+    const element = document.getElementById(sanitizedId);
     if (element) {
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
@@ -63,21 +68,26 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
             </Flex>
             {about.tableOfContent.subItems && (
               <>
-                {section.items.map((item, itemIndex) => (
-                  <Flex
-                    l={{ hide: true }}
-                    key={itemIndex}
-                    style={{ cursor: "pointer" }}
-                    className={styles.hover}
-                    gap="12"
-                    paddingLeft="24"
-                    vertical="center"
-                    onClick={() => scrollTo(item, 80)}
-                  >
-                    <Flex height="1" minWidth="8" background="neutral-strong"></Flex>
-                    <Text>{item}</Text>
-                  </Flex>
-                ))}
+                {section.items.map((item, itemIndex) => {
+                  const displayName = typeof item === "string" ? item : (item.displayName ?? item.targetName);
+                  const targetName = typeof item === "string" ? item : item.targetName;
+                  if (!displayName) return null;
+                  return (
+                    <Flex
+                      l={{ hide: true }}
+                      key={itemIndex}
+                      style={{ cursor: "pointer" }}
+                      className={styles.hover}
+                      gap="12"
+                      paddingLeft="24"
+                      vertical="center"
+                      onClick={() => scrollTo(targetName, 80)}
+                    >
+                      <Flex height="1" minWidth="8" background="neutral-strong"></Flex>
+                      <Text>{displayName}</Text>
+                    </Flex>
+                  );
+                })}
               </>
             )}
           </Column>

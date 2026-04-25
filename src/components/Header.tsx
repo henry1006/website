@@ -72,10 +72,7 @@ export const Header = () => {
           position: "fixed",
         }}
       >
-        <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
-          {display.location && <Row s={{ hide: true }}>{person.location}</Row>}
-        </Row>
-        <Row fillWidth horizontal="center">
+        <Row fillWidth horizontal="end">
           <Row
             background="page"
             border="neutral-alpha-weak"
@@ -111,7 +108,7 @@ export const Header = () => {
               )}
               {routes["/work"] && (
                 <>
-                  <Row s={{ hide: true }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -119,7 +116,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/work")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -130,7 +127,7 @@ export const Header = () => {
               )}
               {routes["/blog"] && (
                 <>
-                  <Row s={{ hide: true }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -138,7 +135,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/blog")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -147,9 +144,28 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              <>
+                <Row s={{ hide: true }}>
+                  <ToggleButton
+                  prefixIcon="document"
+                  label="Resume"
+                  onClick={() =>
+                    window.open("/api/resume", "_blank")
+                  }
+                  />
+                </Row>
+                <Row hide s={{ hide: false }}>
+                  <ToggleButton
+                  prefixIcon="document"
+                  onClick={() =>
+                    window.open("/api/resume", "_blank")
+                  }
+                  />
+                </Row>
+              </>
               {routes["/gallery"] && (
                 <>
-                  <Row s={{ hide: true }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"
@@ -157,7 +173,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/gallery")}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row hide s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"
@@ -175,19 +191,6 @@ export const Header = () => {
             </Row>
           </Row>
         </Row>
-        <Flex fillWidth horizontal="end" vertical="center">
-          <Flex
-            paddingRight="12"
-            horizontal="end"
-            vertical="center"
-            textVariant="body-default-s"
-            gap="20"
-          >
-            <Flex s={{ hide: true }}>
-              {display.time && <TimeDisplay timeZone={person.location} />}
-            </Flex>
-          </Flex>
-        </Flex>
       </Row>
     </>
   );

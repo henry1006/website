@@ -11,11 +11,16 @@ import {
   Meta,
   Schema,
   Row,
+  Grid,
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 import React from "react";
+
+const sanitizeId = (str: string): string => {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+};
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -37,17 +42,26 @@ export default function About() {
     {
       title: about.work.title,
       display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
+      items: about.work.experiences.map((experience) => ({
+        displayName: experience.shortname ?? experience.company,
+        targetName: experience.company,
+      })),
     },
     {
       title: about.studies.title,
       display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
+      items: about.studies.institutions.map((institution) => ({
+        displayName: institution.shortname ?? institution.name,
+        targetName: institution.name,
+      })),
     },
     {
       title: about.technical.title,
       display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
+      items: about.technical.skills.map((skill) => ({
+        displayName: skill.shortname ?? skill.title,
+        targetName: skill.title,
+      })),
     },
   ];
   return (
@@ -111,7 +125,7 @@ export default function About() {
         )}
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
           <Column
-            id={about.intro.title}
+            id={sanitizeId(about.intro.title)}
             fillWidth
             minHeight="160"
             vertical="center"
@@ -204,14 +218,14 @@ export default function About() {
 
           {about.work.display && (
             <>
-              <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
+              <Heading as="h2" id={sanitizeId(about.work.title)} variant="display-strong-s" marginBottom="m">
                 {about.work.title}
               </Heading>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.work.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
+                      <Text id={sanitizeId(experience.company)} variant="heading-strong-l">
                         {experience.company}
                       </Text>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
@@ -234,6 +248,19 @@ export default function About() {
                         ),
                       )}
                     </Column>
+                    
+                    {experience.technicals && experience.technicals.length > 0 && (
+                      <Column fillWidth paddingTop="m">
+                        <Grid fillWidth columns="3" s={{columns: 2}} gap="16">
+                          {experience.technicals.map((technical, index) => (
+                            <Column key={index} border="neutral-alpha-medium" padding="16" radius="m">
+                              <Text>{technical}</Text>
+                            </Column>
+                          ))}
+                        </Grid>
+                      </Column>
+                    )}
+
                     {experience.images && experience.images.length > 0 && (
                       <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
                         {experience.images.map((image, index) => (
@@ -244,13 +271,16 @@ export default function About() {
                             minWidth={image.width}
                             height={image.height}
                           >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
+                          <Grid
+                            fillWidth
+                            columns="3"
+                            s={{columns: 2}}
+                            gap="16"
+                          >
+                            <Column border="neutral-alpha-medium" padding="16" radius="m">
+                              <Text>{experience.technicals?.at(0)}</Text>
+                            </Column>
+                          </Grid>
                           </Row>
                         ))}
                       </Row>
@@ -263,13 +293,13 @@ export default function About() {
 
           {about.studies.display && (
             <>
-              <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
+              <Heading as="h2" id={sanitizeId(about.studies.title)} variant="display-strong-s" marginBottom="m">
                 {about.studies.title}
               </Heading>
               <Column fillWidth gap="l" marginBottom="40">
                 {about.studies.institutions.map((institution, index) => (
                   <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
+                    <Text id={sanitizeId(institution.name)} variant="heading-strong-l">
                       {institution.name}
                     </Text>
                     <Text variant="heading-default-xs" onBackground="neutral-weak">
@@ -285,7 +315,7 @@ export default function About() {
             <>
               <Heading
                 as="h2"
-                id={about.technical.title}
+                id={sanitizeId(about.technical.title)}
                 variant="display-strong-s"
                 marginBottom="40"
               >
@@ -294,7 +324,7 @@ export default function About() {
               <Column fillWidth gap="l">
                 {about.technical.skills.map((skill, index) => (
                   <Column key={`${skill}-${index}`} fillWidth gap="4">
-                    <Text id={skill.title} variant="heading-strong-l">
+                    <Text id={sanitizeId(skill.title)} variant="heading-strong-l">
                       {skill.title}
                     </Text>
                     <Text variant="body-default-m" onBackground="neutral-weak">

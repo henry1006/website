@@ -71,6 +71,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     if (response.ok) {
       setIsAuthenticated(true);
       setError(undefined);
+      window.dispatchEvent(new Event("auth-changed"));
     } else {
       setError("Incorrect password");
     }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, blog, work, gallery } from "@/resources";
+import { useResponsive } from "@/hooks/useResponsive";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
 
@@ -44,20 +45,44 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const responsive = useResponsive();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("/api/check-auth", { cache: "no-store" });
+        if (isMounted) {
+          setIsAuthenticated(response.ok);
+        }
+      } catch {
+        if (isMounted) {
+          setIsAuthenticated(false);
+        }
+      }
+    };
+
+    const handleAuthChange = () => {
+      void checkAuth();
+    };
+
+    void checkAuth();
+    window.addEventListener("auth-changed", handleAuthChange);
+    window.addEventListener("focus", handleAuthChange);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("auth-changed", handleAuthChange);
+      window.removeEventListener("focus", handleAuthChange);
+    };
+  }, [pathname]);
 
   return (
     <>
-      <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
-      <Fade
-        hide
-        s={{ hide: false }}
-        fillWidth
-        position="fixed"
-        bottom="0"
-        to="top"
-        height="80"
-        zIndex={9}
-      />
+      <Fade {...responsive.hideOnMobile} fillWidth position="fixed" height="80" zIndex={9} />
+      <Fade {...responsive.showOnMobileOnly} fillWidth position="fixed" bottom="0" to="top" height="80" zIndex={9} />
       <Row
         fitHeight
         className={styles.position}
@@ -88,8 +113,8 @@ export const Header = () => {
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
               {routes["/about"] && (
-                <>
-                  <Row s={{ hide: true }}>
+                <> 
+                  <Row {...responsive.hideOnMobile}>
                     <ToggleButton
                       prefixIcon="person"
                       href="/about"
@@ -97,7 +122,7 @@ export const Header = () => {
                       selected={pathname === "/about"}
                     />
                   </Row>
-                  <Row hide s={{ hide: false }}>
+                  <Row {...responsive.showOnMobileOnly}>
                     <ToggleButton
                       prefixIcon="person"
                       href="/about"
@@ -108,7 +133,7 @@ export const Header = () => {
               )}
               {routes["/work"] && (
                 <>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.hideOnMobile}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -116,7 +141,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/work")}
                     />
                   </Row>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.showOnMobileOnly}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
@@ -127,7 +152,7 @@ export const Header = () => {
               )}
               {routes["/blog"] && (
                 <>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.hideOnMobile}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -135,7 +160,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/blog")}
                     />
                   </Row>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.showOnMobileOnly}>
                     <ToggleButton
                       prefixIcon="book"
                       href="/blog"
@@ -145,7 +170,7 @@ export const Header = () => {
                 </>
               )}
               <>
-                <Row s={{ hide: true }}>
+                <Row {...responsive.hideOnMobile}>
                   <ToggleButton
                   prefixIcon="document"
                   label="Resume"
@@ -154,7 +179,7 @@ export const Header = () => {
                   }
                   />
                 </Row>
-                <Row hide s={{ hide: false }}>
+                <Row {...responsive.showOnMobileOnly}>
                   <ToggleButton
                   prefixIcon="document"
                   onClick={() =>
@@ -163,9 +188,28 @@ export const Header = () => {
                   />
                 </Row>
               </>
-              {routes["/gallery"] && (
+              {routes["/gallery"] && !isAuthenticated && (
                 <>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.hideOnMobile}>
+                    <ToggleButton
+                      prefixIcon="person"
+                      href="/gallery"
+                      label="Personal"
+                      selected={pathname.startsWith("/gallery")}
+                    />
+                  </Row>
+                  <Row {...responsive.showOnMobileOnly}>
+                    <ToggleButton
+                      prefixIcon="person"
+                      href="/gallery"
+                      selected={pathname.startsWith("/gallery")}
+                    />
+                  </Row>
+                </>
+              )}
+              {routes["/gallery"] && isAuthenticated && (
+                <>
+                  <Row {...responsive.hideOnMobile}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"
@@ -173,7 +217,7 @@ export const Header = () => {
                       selected={pathname.startsWith("/gallery")}
                     />
                   </Row>
-                  <Row hide s={{ hide: true }}>
+                  <Row {...responsive.showOnMobileOnly}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"

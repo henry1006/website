@@ -14,6 +14,7 @@ import {
   Grid,
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
+import { hideOnMobile, showOnMobileOnly, mobileColumn, responsiveGrid } from "@/hooks/useResponsive";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 import React from "react";
@@ -86,12 +87,12 @@ export default function About() {
           position="fixed"
           paddingLeft="24"
           gap="32"
-          s={{ hide: true }}
+          {...hideOnMobile}
         >
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
-      <Row fillWidth s={{ direction: "column"}} horizontal="center">
+      <Row fillWidth {...mobileColumn} horizontal="center">
         {about.avatar.display && (
           <Column
             className={styles.avatar}
@@ -183,7 +184,7 @@ export default function About() {
                   (item) =>
                     item.link && (
                       <React.Fragment key={item.name}>
-                        <Row s={{ hide: true }}>
+                        <Row {...hideOnMobile}>
                           <Button
                             key={item.name}
                             href={item.link}
@@ -194,7 +195,7 @@ export default function About() {
                             variant="secondary"
                           />
                         </Row>
-                        <Row hide s={{ hide: false }}>
+                        <Row {...showOnMobileOnly}>
                           <IconButton
                             size="l"
                             key={`${item.name}-icon`}
@@ -251,7 +252,7 @@ export default function About() {
                     
                     {experience.technicals && experience.technicals.length > 0 && (
                       <Column fillWidth paddingTop="m">
-                        <Grid fillWidth columns="3" s={{columns: 2}} gap="16">
+                        <Grid fillWidth {...responsiveGrid(3, 2)} gap="16">
                           {experience.technicals.map((technical, index) => (
                             <Column key={index} border="neutral-alpha-medium" padding="16" radius="m">
                               <Text>{technical}</Text>
@@ -273,8 +274,7 @@ export default function About() {
                           >
                           <Grid
                             fillWidth
-                            columns="3"
-                            s={{columns: 2}}
+                            {...responsiveGrid(3, 2)}
                             gap="16"
                           >
                             <Column border="neutral-alpha-medium" padding="16" radius="m">

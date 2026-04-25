@@ -1,4 +1,4 @@
-import { getPosts } from "@/utils/utils";
+import { getContentFetching } from "@/hooks/useContentFetching";
 import { Grid } from "@once-ui-system/core";
 import Post from "./Post";
 
@@ -17,20 +17,10 @@ export function Posts({
   exclude = [],
   direction,
 }: PostsProps) {
-  let allBlogs = getPosts(["src", "app", "blog", "posts"]);
-
-  // Exclude by slug (exact match)
-  if (exclude.length) {
-    allBlogs = allBlogs.filter((post) => !exclude.includes(post.slug));
-  }
-
-  const sortedBlogs = allBlogs.sort((a, b) => {
-    return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
+  const { content: displayedBlogs } = getContentFetching("posts", {
+    range,
+    exclude,
   });
-
-  const displayedBlogs = range
-    ? sortedBlogs.slice(range[0] - 1, range.length === 2 ? range[1] : sortedBlogs.length)
-    : sortedBlogs;
 
   return (
     <>

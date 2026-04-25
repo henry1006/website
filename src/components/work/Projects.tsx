@@ -1,4 +1,4 @@
-import { getPosts } from "@/utils/utils";
+import { getContentFetching } from "@/hooks/useContentFetching";
 import { Column } from "@once-ui-system/core";
 import { ProjectCard } from "@/components";
 
@@ -8,20 +8,10 @@ interface ProjectsProps {
 }
 
 export function Projects({ range, exclude }: ProjectsProps) {
-  let allProjects = getPosts(["src", "app", "work", "projects"]);
-
-  // Exclude by slug (exact match)
-  if (exclude && exclude.length > 0) {
-    allProjects = allProjects.filter((post) => !exclude.includes(post.slug));
-  }
-
-  const sortedProjects = allProjects.sort((a, b) => {
-    return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
+  const { content: displayedProjects } = getContentFetching("projects", {
+    range: range ? ([range[0], range[1]] as [number, number]) : undefined,
+    exclude,
   });
-
-  const displayedProjects = range
-    ? sortedProjects.slice(range[0] - 1, range[1] ?? sortedProjects.length)
-    : sortedProjects;
 
   return (
     <Column fillWidth gap="xl" marginBottom="40" paddingX="l">

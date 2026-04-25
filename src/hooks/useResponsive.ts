@@ -1,3 +1,5 @@
+import type { gridSize } from "@once-ui-system/core";
+
 /**
  * Responsive design patterns for Once UI components
  * Use these patterns to standardize responsive behavior across the app
@@ -42,7 +44,7 @@ export const mobileColumn = {
  * Responsive grid columns - function to allow parameterization
  * Usage: <Grid {...responsive.responsiveGrid(3, 1)} />
  */
-export const responsiveGrid = (desktopColumns: number, mobileColumns: number) => ({
+export const responsiveGrid = (desktopColumns: gridSize, mobileColumns: gridSize) => ({
   columns: desktopColumns,
   s: { columns: mobileColumns },
 });

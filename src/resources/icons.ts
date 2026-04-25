@@ -1,4 +1,4 @@
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
 
 import {
   HiArrowUpRight,
@@ -12,6 +12,8 @@ import {
   HiOutlineDocument,
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
+  HiArrowRightEndOnRectangle,
+  HiArrowRightOnRectangle,
 } from "react-icons/hi2";
 
 import {
@@ -53,6 +55,8 @@ export const iconLibrary: Record<string, IconType> = {
   threads: FaThreads,
   arrowUpRightFromSquare: HiArrowTopRightOnSquare,
   document: HiOutlineDocument,
+  login: HiArrowRightEndOnRectangle,
+  logout: HiArrowRightOnRectangle, 
   rocket: HiOutlineRocketLaunch,
   javascript: SiJavascript,
   nextjs: SiNextdotjs,

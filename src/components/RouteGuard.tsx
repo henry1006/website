@@ -20,6 +20,8 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const performChecks = async () => {
       setLoading(true);
       setIsRouteEnabled(false);
@@ -44,21 +46,34 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       };
 
       const routeEnabled = checkRouteEnabled();
+      if (!isMounted) return;
       setIsRouteEnabled(routeEnabled);
 
       if (protectedRoutes[pathname as keyof typeof protectedRoutes]) {
         setIsPasswordRequired(true);
 
         const response = await fetch("/api/check-auth");
+        if (!isMounted) return;
         if (response.ok) {
           setIsAuthenticated(true);
         }
       }
 
+      if (!isMounted) return;
       setLoading(false);
     };
 
-    performChecks();
+    const handleAuthChange = () => {
+      void performChecks();
+    };
+
+    void performChecks();
+    window.addEventListener("auth-changed", handleAuthChange);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("auth-changed", handleAuthChange);
+    };
   }, [pathname]);
 
   const handlePasswordSubmit = async () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
@@ -43,9 +43,13 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-GB" })
 
 export default TimeDisplay;
 
+const INACTIVITY_TIMEOUT_MS = 15 * 60 * 1000;
+
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const logoutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const responsive = useResponsive();
 
   useEffect(() => {
@@ -78,6 +82,69 @@ export const Header = () => {
       window.removeEventListener("focus", handleAuthChange);
     };
   }, [pathname]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/logout", {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      setIsAuthenticated(false);
+      window.dispatchEvent(new Event("auth-changed"));
+      router.refresh();
+    } catch {
+      setIsAuthenticated(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      if (logoutTimerRef.current) {
+        clearTimeout(logoutTimerRef.current);
+        logoutTimerRef.current = null;
+      }
+      return;
+    }
+
+    const resetLogoutTimer = () => {
+      if (logoutTimerRef.current) {
+        clearTimeout(logoutTimerRef.current);
+      }
+
+      logoutTimerRef.current = setTimeout(() => {
+        void handleLogout();
+      }, INACTIVITY_TIMEOUT_MS);
+    };
+
+    const activityEvents: Array<keyof WindowEventMap> = [
+      "mousemove",
+      "mousedown",
+      "keydown",
+      "scroll",
+      "touchstart",
+    ];
+
+    resetLogoutTimer();
+
+    for (const eventName of activityEvents) {
+      window.addEventListener(eventName, resetLogoutTimer, { passive: true });
+    }
+
+    return () => {
+      if (logoutTimerRef.current) {
+        clearTimeout(logoutTimerRef.current);
+        logoutTimerRef.current = null;
+      }
+
+      for (const eventName of activityEvents) {
+        window.removeEventListener(eventName, resetLogoutTimer);
+      }
+    };
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -131,7 +198,7 @@ export const Header = () => {
                   </Row>
                 </>
               )}
-              {routes["/work"] && (
+              {routes["/work"] && isAuthenticated && (
                 <>
                   <Row {...responsive.hideOnMobile}>
                     <ToggleButton
@@ -150,7 +217,7 @@ export const Header = () => {
                   </Row>
                 </>
               )}
-              {routes["/blog"] && (
+              {routes["/blog"] && isAuthenticated && (
                 <>
                   <Row {...responsive.hideOnMobile}>
                     <ToggleButton
@@ -223,6 +290,16 @@ export const Header = () => {
                       href="/gallery"
                       selected={pathname.startsWith("/gallery")}
                     />
+                  </Row>
+                </>
+              )}
+              {isAuthenticated && (
+                <>
+                  <Row {...responsive.hideOnMobile}>
+                    <ToggleButton prefixIcon="login" label="Logout" onClick={handleLogout} />
+                  </Row>
+                  <Row {...responsive.showOnMobileOnly}>
+                    <ToggleButton prefixIcon="login" onClick={handleLogout} />
                   </Row>
                 </>
               )}
